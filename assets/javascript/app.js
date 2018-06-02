@@ -1,6 +1,6 @@
 var questions = [
     first = {
-        question: "What is the player character called?" ,
+        question: "What is the player character called?",
         rightanswer: "Interloper",
         wrong1: "Introloper",
         wrong2: "Interceptor",
@@ -15,3 +15,11 @@ var questions = [
     }
 
 ]
+
+var start = function () {
+    $(".hide").removeClass("hide");
+    $("#start").addClass("hide");
+    console.log("ran")
+};
+
+$("#start").on("click", start);
