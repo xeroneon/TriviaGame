@@ -16,10 +16,32 @@ var questions = [
 
 ]
 
+var timeLeft = 30;
+
+var timeLeftId;
+
+function run() {
+    clearInterval(timeLeftId);
+    timeLeftId = setInterval(decrement, 1000);
+}
+
+function stop() {
+    clearInterval(timeLeftId);
+}
+
+var timer = function () {
+    timeleft--;
+
+    if (timeLeft === 0) {
+        
+    }
+}
+
 var start = function () {
     $(".hide").removeClass("hide");
     $("#start").addClass("hide");
     console.log("ran")
+
 };
 
 $("#start").on("click", start);
