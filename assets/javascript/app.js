@@ -1,6 +1,6 @@
 var questions = [
     first = {
-        question: "What is the player character called?",
+        question: "What is the player called?",
         rightanswer: "Interloper",
         wrong1: "Introloper",
         wrong2: "Interceptor",
@@ -16,32 +16,41 @@ var questions = [
 
 ]
 
+var currentQuestion = 0;
+
 var timeLeft = 30;
 
 var timeLeftId;
 
-function run() {
+function runTimer() {
     clearInterval(timeLeftId);
-    timeLeftId = setInterval(decrement, 1000);
+    timeLeftId = setInterval(timer, 1000);
 }
 
-function stop() {
+function stopTimer() {
     clearInterval(timeLeftId);
 }
 
 var timer = function () {
-    timeleft--;
+    timeLeft--;
+    console.log("timer")
+    $("#time-remaining").html(timeLeft);
+
 
     if (timeLeft === 0) {
-        
+        stopTimer();
     }
 }
 
 var start = function () {
     $(".hide").removeClass("hide");
     $("#start").addClass("hide");
-    console.log("ran")
+    console.log("ran");
+    runTimer();
+
+    $("#question").html(questions[currentQuestion].question);
 
 };
 
 $("#start").on("click", start);
+// $("#start").on("click", runTimer);
