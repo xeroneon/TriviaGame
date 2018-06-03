@@ -70,7 +70,7 @@ $(document).ready(function () {
 
         answerArray = ["0", "1", "2", "3"];
 
-        console.log(answerArray);
+       
 
 
     };
@@ -87,10 +87,13 @@ $(document).ready(function () {
 
     $("#start").on("click", start);
 
-    $("#0").on("click", function () {
-        // currentQuestion++;
-        console.log(currentQuestion);
-        // genQuestion();
+    $("body").on("click", "#0", function () {
+        $("#question").empty();
+        $("#answers").empty();
+
+        currentQuestion++;
+
+        genQuestion();
     });
     // $("#start").on("click", runTimer);
 
