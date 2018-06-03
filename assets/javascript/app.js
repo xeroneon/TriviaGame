@@ -27,11 +27,11 @@ var timeLeftId;
 function runTimer() {
     clearInterval(timeLeftId);
     timeLeftId = setInterval(timer, 1000);
-}
+};
 
 function stopTimer() {
     clearInterval(timeLeftId);
-}
+};
 
 var timer = function () {
     timeLeft--;
@@ -42,30 +42,45 @@ var timer = function () {
     if (timeLeft === 0) {
         stopTimer();
     }
-}
+};
 
 var genQuestion = function () {
+    $("#question").html(questions[currentQuestion].question);
+
     for (i = 0; i < 4; i++) {
         var p = document.createElement("p");
-        $(p).attr("questionNumber", answerArray[Math.floor(Math.random() * answerArray.length)]);
-        console.log($(p).attr("questionNumber"));
+        var id = Math.floor(Math.random() * answerArray.length)
+        p.id = answerArray[id];
+        // console.log($(p).attr("questionNumber"));
         $("#answers").append($(p).text("Ran"));
-        var splice = answerArray.indexOf($(p).attr("questionNumber"));
-        console.log("splice", splice);
+        var splice = answerArray.indexOf(p.id);
+        // console.log("splice", splice);
         answerArray.splice(splice, 1);
     }
-}
+
+    $("#0").text(questions[currentQuestion].rightanswer);
+    $("#1").text(questions[currentQuestion].wrong1);
+    $("#2").text(questions[currentQuestion].wrong2);
+    $("#3").text(questions[currentQuestion].wrong3);
+
+    
+};
 
 var start = function () {
     $(".hide").removeClass("hide");
     $("#start").addClass("hide");
     console.log("ran");
     runTimer();
-
-    $("#question").html(questions[currentQuestion].question);
     genQuestion();
 
 };
 
+$("#0").on("click", function() {
+    currentQuestion++;
+    genQuestion();
+    console.log(this)
+});
+
 $("#start").on("click", start);
+
 // $("#start").on("click", runTimer);
