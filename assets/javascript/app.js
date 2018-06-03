@@ -16,6 +16,8 @@ var questions = [
 
 ]
 
+var answerArray = ["0", "1", "2", "3"];
+
 var currentQuestion = 0;
 
 var timeLeft = 30;
@@ -42,6 +44,18 @@ var timer = function () {
     }
 }
 
+var genQuestion = function () {
+    for (i = 0; i < 4; i++) {
+        var p = document.createElement("p");
+        $(p).attr("questionNumber", answerArray[Math.floor(Math.random() * answerArray.length)]);
+        console.log($(p).attr("questionNumber"));
+        $("#answers").append($(p).text("Ran"));
+        var splice = answerArray.indexOf($(p).attr("questionNumber"));
+        console.log("splice", splice);
+        answerArray.splice(splice, 1);
+    }
+}
+
 var start = function () {
     $(".hide").removeClass("hide");
     $("#start").addClass("hide");
@@ -49,6 +63,7 @@ var start = function () {
     runTimer();
 
     $("#question").html(questions[currentQuestion].question);
+    genQuestion();
 
 };
 
