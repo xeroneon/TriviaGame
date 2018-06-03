@@ -48,12 +48,12 @@ var genQuestion = function () {
     $("#question").html(questions[currentQuestion].question);
 
     for (i = 0; i < 4; i++) {
-        var p = document.createElement("p");
+        var div = document.createElement("div");
         var id = Math.floor(Math.random() * answerArray.length)
-        p.id = answerArray[id];
+        div.id = answerArray[id];
         // console.log($(p).attr("questionNumber"));
-        $("#answers").append($(p).text("Ran"));
-        var splice = answerArray.indexOf(p.id);
+        $("#answers").append($(div).text("Ran"));
+        var splice = answerArray.indexOf(div.id);
         // console.log("splice", splice);
         answerArray.splice(splice, 1);
     }
@@ -77,8 +77,8 @@ var start = function () {
 
 $("#0").on("click", function() {
     currentQuestion++;
+    console.log(currentQuestion);
     genQuestion();
-    console.log(this)
 });
 
 $("#start").on("click", start);
