@@ -17,6 +17,13 @@ $(document).ready(function () {
             wrong1: "Nickel",
             wrong2: "Emeril",
             wrong3: "Carbon"
+        },
+        third = {
+            question: "How many planets are in the universe",
+            rightanswer: "18 Quintillion",
+            wrong1: "17 Quadrillion",
+            wrong2: "64 Sextillion",
+            wrong3: "5"
         }
 
     ]
@@ -25,9 +32,12 @@ $(document).ready(function () {
 
     var currentQuestion = 0;
 
-    var timeLeft = 30;
+    var timeLeft = 15;
 
     var timeLeftId;
+
+    var wrongAnswerCount = 0;
+    var rightAnswerCount = 0;
 
     function runTimer() {
         clearInterval(timeLeftId);
@@ -46,10 +56,24 @@ $(document).ready(function () {
 
         if (timeLeft === 0) {
             stopTimer();
+            $("#question").empty();
+            $("#answers").empty();
+            var div = document.createElement("div");
+            $(div).text("Times up!, The right answer was " + questions[currentQuestion].rightanswer);
+            $("#answers").append(div);
+            currentQuestion++;
+            wrongAnswerCount++;
+            timeLeft = 15;
+            $("#time-remaining").text(timeLeft);
+            setTimeout(runTimer, 1000 * 3);
+
+            setTimeout(genQuestion, 1000 * 5);
         }
     };
 
     var genQuestion = function () {
+        $("#question").empty();
+        $("#answers").empty();
         $("#question").html(questions[currentQuestion].question);
 
         for (i = 0; i < 4; i++) {
@@ -70,7 +94,7 @@ $(document).ready(function () {
 
         answerArray = ["0", "1", "2", "3"];
 
-       
+
 
 
     };
@@ -92,8 +116,25 @@ $(document).ready(function () {
         $("#answers").empty();
 
         currentQuestion++;
+        rightAnswerCount++;
+        $("#right-answers").text(rightAnswerCount);
 
-        genQuestion();
+        stopTimer();
+        timeLeft = 15;
+        if (currentQuestion < questions.length) {
+            $("#time-remaining").text(timeLeft);
+            setTimeout(runTimer, 1000 * 3);
+            var div = document.createElement("div");
+            $(div).text("You got it right!");
+            $("#answers").append(div);
+
+            setTimeout(genQuestion, 1000 * 3);
+        }
+        else {
+            var div = document.createElement("div");
+            $(div).text("You got " + rightAnswerCount +"/" + questions.length + " Right");
+            $("#answers").append(div);
+        }
     });
     // $("#start").on("click", runTimer);
 
