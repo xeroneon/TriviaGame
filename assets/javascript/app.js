@@ -55,19 +55,25 @@ $(document).ready(function () {
 
 
         if (timeLeft === 0) {
-            stopTimer();
-            $("#question").empty();
-            $("#answers").empty();
-            var div = document.createElement("div");
-            $(div).text("Times up!, The right answer was " + questions[currentQuestion].rightanswer);
-            $("#answers").append(div);
-            currentQuestion++;
-            wrongAnswerCount++;
-            timeLeft = 15;
-            $("#time-remaining").text(timeLeft);
-            setTimeout(runTimer, 1000 * 3);
+            if (currentQuestion < questions.length) {
+                stopTimer();
+                $("#question").empty();
+                $("#answers").empty();
+                var div = document.createElement("div");
+                $(div).text("Times up!, The right answer was " + questions[currentQuestion].rightanswer);
+                $("#answers").append(div);
+                currentQuestion++;
+                wrongAnswerCount++;
+                $("#wrong-answers").text(wrongAnswerCount);
+                timeLeft = 15;
+                $("#time-remaining").text(timeLeft);
+                setTimeout(runTimer, 1000 * 3);
 
-            setTimeout(genQuestion, 1000 * 5);
+                setTimeout(genQuestion, 1000 * 5);
+            }
+            else {
+                setTimeout(gameStart, 1000 * 3);
+            }
         }
     };
 
@@ -94,16 +100,23 @@ $(document).ready(function () {
 
         answerArray = ["0", "1", "2", "3"];
 
-
+        runTimer();
 
 
     };
 
     var start = function () {
-        $(".hide").removeClass("hide");
+        answerArray = ["0", "1", "2", "3"];
+        currentQuestion = 0;
+        timeLeft = 15;
+        timeLeftId;
+        wrongAnswerCount = 0;
+        rightAnswerCount = 0;
+        $("#right-answers").text(rightAnswerCount);
+        $("#wrong-answers").text(wrongAnswerCount);
+        $(".game-div").removeClass("hide");
         $("#start").addClass("hide");
-        console.log("ran");
-        runTimer();
+        $("#start").text("Restart");
         genQuestion();
 
     };
@@ -132,10 +145,69 @@ $(document).ready(function () {
         }
         else {
             var div = document.createElement("div");
-            $(div).text("You got " + rightAnswerCount +"/" + questions.length + " Right");
+            $(div).text("You got " + rightAnswerCount + "/" + questions.length + " Right");
             $("#answers").append(div);
+            setTimeout(function () {  
+                $("#start").removeClass("hide");
+            }, 1000 * 3)
         }
     });
-    // $("#start").on("click", runTimer);
+
+    $("body").on("click", "#1", function () {
+        wrongHandler();
+
+    });
+
+    $("body").on("click", "#2", function () {
+        wrongHandler();
+
+    });
+
+    $("body").on("click", "#3", function () {
+        wrongHandler();
+
+    });
+
+    var wrongHandler = function () {
+        $("#question").empty();
+        $("#answers").empty();
+        wrongAnswerCount++;
+        $("#wrong-answers").text(wrongAnswerCount);
+        stopTimer();
+        timeLeft = 15;
+        if (currentQuestion < questions.length - 1) {
+            $("#time-remaining").text(timeLeft);
+            setTimeout(runTimer, 1000 * 3);
+            var div = document.createElement("div");
+            $(div).text("You got it Wrong! The right answer was " + questions[currentQuestion].rightanswer);
+            $("#answers").append(div);
+            
+            setTimeout(genQuestion, 1000 * 3);
+        }
+        else {
+            var div = document.createElement("div");
+            $(div).text("You got " + rightAnswerCount + "/" + questions.length + " Right");
+            $("#answers").append(div);
+            setTimeout(function () {  
+                $("#start").removeClass("hide");
+            }, 1000 * 3)
+        }
+        currentQuestion++;
+
+    }
+
+    // var newGame = function () {
+    //     var answerArray = ["0", "1", "2", "3"];
+    //     var currentQuestion = 0;
+    //     var timeLeft = 15;
+    //     var timeLeftId;
+    //     var wrongAnswerCount = 0;
+    //     var rightAnswerCount = 0;
+    //     $("#right-answers").text(rightAnswerCount);
+    //     $("#wrong-answers").text(wrongAnswerCount);
+    //     $(".game-div").removeClass("hide");
+    //     $("#start").addClass("hide");
+    //     genQuestion();
+    // }
 
 });
