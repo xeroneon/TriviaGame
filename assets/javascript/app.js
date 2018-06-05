@@ -9,21 +9,35 @@ $(document).ready(function () {
             rightanswer: "Interloper",
             wrong1: "Introloper",
             wrong2: "Interceptor",
-            wrong3: "Traveller"
+            wrong3: "Invocator"
         },
         second = {
-            question: "What element powers launch thrusters",
+            question: "What element powers Launch Thrusters?",
             rightanswer: "Plutonium",
             wrong1: "Nickel",
             wrong2: "Emeril",
             wrong3: "Carbon"
         },
         third = {
-            question: "How many planets are in the universe",
+            question: "How many planets are in the universe?",
             rightanswer: "18 Quintillion",
             wrong1: "17 Quadrillion",
             wrong2: "64 Sextillion",
             wrong3: "5"
+        },
+        fourth = {
+            question: "Who made No Man's Sky?",
+            rightanswer: "Hello Games",
+            wrong1: "Valve",
+            wrong2: "2K Games",
+            wrong3: "EA"
+        },
+        fifth = {
+            question: "What element powers Pulse Thrusters?",
+            rightanswer: "Iron",
+            wrong1: "Carbon",
+            wrong2: "Emeril",
+            wrong3: "Thamium"
         }
 
     ]
