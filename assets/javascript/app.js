@@ -32,7 +32,7 @@ $(document).ready(function () {
 
     var currentQuestion = 0;
 
-    var timeLeft = 15;
+    var timeLeft = 2;
 
     var timeLeftId;
 
@@ -55,24 +55,29 @@ $(document).ready(function () {
 
 
         if (timeLeft === 0) {
+            $("#question").empty();
+            $("#answers").empty();
+            currentQuestion++;
+            wrongAnswerCount++;
+            $("#wrong-answers").text(wrongAnswerCount);
+            stopTimer();
+            timeLeft = 15;
             if (currentQuestion < questions.length) {
-                stopTimer();
-                $("#question").empty();
-                $("#answers").empty();
                 var div = document.createElement("div");
                 $(div).text("Times up!, The right answer was " + questions[currentQuestion].rightanswer);
                 $("#answers").append(div);
-                currentQuestion++;
-                wrongAnswerCount++;
-                $("#wrong-answers").text(wrongAnswerCount);
-                timeLeft = 15;
                 $("#time-remaining").text(timeLeft);
                 setTimeout(runTimer, 1000 * 3);
 
-                setTimeout(genQuestion, 1000 * 5);
+                setTimeout(genQuestion, 1000 * 3);
             }
             else {
-                setTimeout(gameStart, 1000 * 3);
+                var div = document.createElement("div");
+                $(div).text("You got " + rightAnswerCount + "/" + questions.length + " Right");
+                $("#answers").append(div);
+                setTimeout(function () {
+                    $("#start").removeClass("hide");
+                }, 1000 * 3)
             }
         }
     };
@@ -83,12 +88,14 @@ $(document).ready(function () {
         $("#question").html(questions[currentQuestion].question);
 
         for (i = 0; i < 4; i++) {
-            var div = document.createElement("div");
+            var td = document.createElement("td");
+            var tr = document.createElement("tr");
             var id = Math.floor(Math.random() * answerArray.length)
-            div.id = answerArray[id];
+            td.id = answerArray[id];
             // console.log($(p).attr("questionNumber"));
-            $("#answers").append($(div).text("Ran"));
-            var splice = answerArray.indexOf(div.id);
+            $(tr).append($(td).text("Ran"));
+            $("#answers").append(tr)
+            var splice = answerArray.indexOf(td.id);
             // console.log("splice", splice);
             answerArray.splice(splice, 1);
         }
@@ -147,7 +154,7 @@ $(document).ready(function () {
             var div = document.createElement("div");
             $(div).text("You got " + rightAnswerCount + "/" + questions.length + " Right");
             $("#answers").append(div);
-            setTimeout(function () {  
+            setTimeout(function () {
                 $("#start").removeClass("hide");
             }, 1000 * 3)
         }
@@ -181,14 +188,14 @@ $(document).ready(function () {
             var div = document.createElement("div");
             $(div).text("You got it Wrong! The right answer was " + questions[currentQuestion].rightanswer);
             $("#answers").append(div);
-            
+
             setTimeout(genQuestion, 1000 * 3);
         }
         else {
             var div = document.createElement("div");
             $(div).text("You got " + rightAnswerCount + "/" + questions.length + " Right");
             $("#answers").append(div);
-            setTimeout(function () {  
+            setTimeout(function () {
                 $("#start").removeClass("hide");
             }, 1000 * 3)
         }
