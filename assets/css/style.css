@@ -2,6 +2,7 @@ body {
     font-family: 'geonms';
     color: white;
     font-size: 22px;
+    text-shadow: 2px 2px #555;
 }
 html {
     background: url("../images/NMS_NEXT_HERO-hero.jpg");
@@ -10,6 +11,14 @@ html {
     background-repeat: no-repeat;
     height: 100vh;
 
+}
+
+#start {
+    margin-top: 10px;
+}
+
+td:hover {
+    cursor: pointer;
 }
 
 @media screen and (max-width: 414px) {
